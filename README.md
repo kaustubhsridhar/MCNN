@@ -8,7 +8,7 @@ pip install -r requirements.txt
 ```
 
 Setup mujoco210 by following the instructions from https://github.com/openai/mujoco-py#install-mujoco.
-In case you run across a gcc error, please follow the trouble shooting instructions [here if you have sudo access](https://github.com/openai/mujoco-py#ubuntu-installtion-troubleshooting) or [here otherwise](https://github.com/openai/mujoco-py/issues/627#issuecomment-1383054926).
+In case you run across a gcc error, please follow the trouble shooting instructions [here if you have sudo access](https://github.com/openai/mujoco-py#ubuntu-installtion-troubleshooting) or [here otherwise](https://github.com/openai/mujoco-py/issues/627#issuecomment-1383054926). A detailed pip package version list for the environment can be found [here](https://docs.google.com/document/d/19dZ-B405lTxNXVU4ToT5aT9JkV3iqH_Y3DVXk52pEQE/edit?usp=sharing).
 
 Install this package
 ```bash
