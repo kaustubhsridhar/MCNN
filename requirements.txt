@@ -11,5 +11,5 @@ pytorch-mppi[tune]
 arm-pytorch-utilities
 pandas==2.0.0
 numpy==1.20.3
-neupy
+neupy==0.6.5 # version for this code
 patchelf
