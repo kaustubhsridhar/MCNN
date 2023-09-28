@@ -28,5 +28,4 @@ data/datasets
 ibc/
 algos/print_results.py
 algos/mcnn_logs
-Diffusion_Policies/results
-Diffusion_Policies/results_saved
+Diffusion_Policies/results*
