@@ -4,7 +4,7 @@ mkdir logs
 GPU=0
 SEED=0
 
-for TASKS in 'pen-human-v1 hammer-human-v1' 'relocate-human-v1 door-human-v1'
+for TASKS in 'pen-expert-v1 hammer-expert-v1' 'relocate-expert-v1 door-expert-v1' # 'pen-human-v1 hammer-human-v1' 'relocate-human-v1 door-human-v1'
 do
     for task in ${TASKS}
     do
