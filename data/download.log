@@ -1,0 +1,96 @@
+halfcheetah-random-v2
+Number of samples collected: 998002
+Number of episodes: 999
+Trajectory returns: mean = -288.621337890625, std = 80.39944458007812, max = -86.90510559082031, min = -525.9493408203125
+halfcheetah-medium-v2
+Number of samples collected: 998002
+Number of episodes: 999
+Trajectory returns: mean = 4765.744140625, std = 355.2850646972656, max = 5303.99853515625, min = -309.6566162109375
+halfcheetah-medium-replay-v2
+Number of samples collected: 200800
+Number of episodes: 201
+Trajectory returns: mean = 3082.29345703125, std = 1679.0245361328125, max = 4981.501953125, min = -637.108642578125
+halfcheetah-expert-v2
+Number of samples collected: 998002
+Number of episodes: 999
+Trajectory returns: mean = 10644.7568359375, std = 440.9915771484375, max = 11239.41796875, min = 2046.053466796875
+hopper-random-v2
+Number of samples collected: 999996
+Number of episodes: 45239
+Trajectory returns: mean = 18.39890480041504, std = 17.451160430908203, max = 292.55419921875, min = 2.9301533699035645
+hopper-medium-v2
+Number of samples collected: 999905
+Number of episodes: 2186
+Trajectory returns: mean = 1422.05419921875, std = 378.9443054199219, max = 3218.0390625, min = 315.8680114746094
+hopper-medium-replay-v2
+Number of samples collected: 401455
+Number of episodes: 1705
+Trajectory returns: mean = 558.6215209960938, std = 615.2330322265625, max = 3266.66357421875, min = -1.4400691986083984
+hopper-expert-v2
+Number of samples collected: 998556
+Number of episodes: 1027
+Trajectory returns: mean = 3507.768798828125, std = 327.6381530761719, max = 3753.88671875, min = 1645.2764892578125
+walker2d-random-v2
+Number of samples collected: 999997
+Number of episodes: 48907
+Trajectory returns: mean = 1.8713510036468506, std = 5.81272554397583, max = 75.0345687866211, min = -17.00582504272461
+walker2d-medium-v2
+Number of samples collected: 999318
+Number of episodes: 1190
+Trajectory returns: mean = 2849.94287109375, std = 1094.0177001953125, max = 4226.93994140625, min = -6.6056718826293945
+walker2d-medium-replay-v2
+Number of samples collected: 301202
+Number of episodes: 890
+Trajectory returns: mean = 835.2230224609375, std = 1012.6343994140625, max = 4033.36865234375, min = -50.196834564208984
+walker2d-expert-v2
+Number of samples collected: 998215
+Number of episodes: 1000
+Trajectory returns: mean = 4915.2060546875, std = 136.24810791015625, max = 5006.12744140625, min = 762.7508544921875
+hammer-human-v1
+Number of samples collected: 10990
+Number of episodes: 11
+Trajectory returns: mean = 6139.74853515625, std = 6385.12353515625, max = 21032.44921875, min = 193.13992309570312
+hammer-expert-v1
+Number of samples collected: 994006
+Number of episodes: 995
+Trajectory returns: mean = 61811.49609375, std = 13455.556640625, max = 82576.703125, min = 15594.9697265625
+hammer-cloned-v1
+Number of samples collected: 996004
+Number of episodes: 997
+Trajectory returns: mean = 2815.39599609375, std = 5789.94140625, max = 23015.375, min = -1538.3389892578125
+pen-human-v1
+Number of samples collected: 3997
+Number of episodes: 4
+Trajectory returns: mean = 25943.337890625, std = 5605.00146484375, max = 31106.0390625, min = 16810.95703125
+pen-expert-v1
+Number of samples collected: 493618
+Number of episodes: 514
+Trajectory returns: mean = 31548.919921875, std = 7678.7470703125, max = 46006.9375, min = -29.30564308166504
+pen-cloned-v1
+Number of samples collected: 495505
+Number of episodes: 508
+Trajectory returns: mean = 24365.2109375, std = 11078.375, max = 53736.1328125, min = -28.920957565307617
+relocate-human-v1
+Number of samples collected: 8992
+Number of episodes: 9
+Trajectory returns: mean = 9138.4423828125, std = 1692.516357421875, max = 11961.12109375, min = 6597.74072265625
+relocate-expert-v1
+Number of samples collected: 994006
+Number of episodes: 995
+Trajectory returns: mean = 21585.060546875, std = 1902.1895751953125, max = 24217.359375, min = 12099.1796875
+relocate-cloned-v1
+Number of samples collected: 996004
+Number of episodes: 997
+Trajectory returns: mean = 4568.45166015625, std = 4740.4365234375, max = 13187.79296875, min = -78.87448120117188
+door-human-v1
+Number of samples collected: 5995
+Number of episodes: 6
+Trajectory returns: mean = 2645.543701171875, std = 854.6627807617188, max = 3627.02587890625, min = 1439.6700439453125
+door-expert-v1
+Number of samples collected: 994006
+Number of episodes: 995
+Trajectory returns: mean = 14537.884765625, std = 902.3279418945312, max = 15291.4609375, min = 8948.29296875
+door-cloned-v1
+Number of samples collected: 995005
+Number of episodes: 996
+Trajectory returns: mean = 1311.2608642578125, std = 1711.6375732421875, max = 4251.8134765625, min = -312.3367919921875

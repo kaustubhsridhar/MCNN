@@ -1,0 +1,15 @@
+mujoco-py 
+pygame 
+networkx 
+dotmap
+git+https://github.com/Farama-Foundation/d4rl@master#egg=d4rl
+matplotlib
+gym
+ray
+tensorboard
+arm-pytorch-utilities
+pandas==2.0.0
+numpy==1.20.3
+neupy==0.6.5
+patchelf
+cython<3
