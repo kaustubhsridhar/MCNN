@@ -29,8 +29,13 @@ print(f'{adjacency_matrix.shape=}')
 
 # load updated datasets' memories
 dataset = qlearning_dataset_percentbc(task, 1.0, num_memories_frac)
+observations = dataset['observations']
 saved_memories_array = dataset['memories_obs']
 
 # checks
 assert len(nodes) == len(saved_memories_array)
+
+# Why?
+# Each memory (ie row of saved_memories_array) is the observation (ie some row of observations) that was closest to the node (ie row of nodes)
+# The adjacency matrix is the connection in the gng and remains the same for both the gng and the memories
 
