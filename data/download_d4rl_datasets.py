@@ -28,7 +28,7 @@ def download(name):
 		if use_timeouts:
 			final_timestep = dataset['timeouts'][i]
 		else:
-			final_timestep = (episode_step == 1000-1)
+			final_timestep = (episode_step == 1000-1) or (i == N-1)
 
 		for k in ['observations', 'next_observations', 'actions', 'rewards', 'terminals']:
 			data_[k].append(dataset[k][i])
