@@ -197,8 +197,8 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, scaler=None, output_di
     eval_env = gym.make(env_name)
     eval_env.seed(seed + 100)
 
-    if curr_epoch < args.num_epochs * 80 // 100:
-        save_videos = False # overwrite the default save_videos to False until the end of training
+    # if curr_epoch < args.num_epochs * 80 // 100:
+    #     save_videos = False # overwrite the default save_videos to False until the end of training
     if save_videos:
         video_folder = f'{output_dir}/saved_videos'
         os.makedirs(video_folder, exist_ok=True)
@@ -229,7 +229,6 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, scaler=None, output_di
     std_norm_score = np.std(normalized_scores)
 
     utils.print_banner(f"Evaluation over {eval_episodes} episodes: {avg_reward:.2f} {avg_norm_score:.2f}")
-    eval_env.close()
     return avg_reward, std_reward, avg_norm_score, std_norm_score
 
 

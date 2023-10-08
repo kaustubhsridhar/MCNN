@@ -8,7 +8,7 @@ for TASKS in 'pen-expert-v1 hammer-expert-v1' 'relocate-expert-v1 door-expert-v1
 do
     for task in ${TASKS}
     do
-        # CUDA_VISIBLE_DEVICES=${GPU} nohup python -u main.py --seed ${SEED} --algo bc --env_name ${task} --device 0 --ms online --lr_decay > logs/bc_${task}.log &
+        # CUDA_VISIBLE_DEVICES=${GPU} nohup python -u main.py --seed ${SEED} --algo bc --env_name ${task} --device 0 --ms online --lr_decay --save_videos > logs/bc_${task}.log &
         
         for F in 0.1 #0.025 0.05
         do
