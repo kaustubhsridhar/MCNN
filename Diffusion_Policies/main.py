@@ -144,7 +144,8 @@ def train_agent(env, state_dim, action_dim, max_action, device, output_dir, args
 
         # Evaluation
         eval_res, eval_res_std, eval_norm_res, eval_norm_res_std = eval_policy(agent, args.env_name, args.seed,
-                                                                               eval_episodes=args.eval_episodes, scaler=scaler if args.algo == 'mcnn_bc' else None)
+                                                                               eval_episodes=args.eval_episodes, scaler=scaler if args.algo == 'mcnn_bc' else None, 
+                                                                               output_dir=output_dir, save_videos=args.save_videos, curr_epoch=curr_epoch)
         evaluations.append([eval_res, eval_res_std, eval_norm_res, eval_norm_res_std,
                             np.mean(loss_metric['bc_loss']), np.mean(loss_metric['ql_loss']),
                             np.mean(loss_metric['actor_loss']), np.mean(loss_metric['critic_loss']),
@@ -192,19 +193,33 @@ def train_agent(env, state_dim, action_dim, max_action, device, output_dir, args
 
 # Runs policy for X episodes and returns average reward
 # A fixed seed is used for the eval environment
-def eval_policy(policy, env_name, seed, eval_episodes=10, scaler=None):
+def eval_policy(policy, env_name, seed, eval_episodes=10, scaler=None, output_dir=None, save_videos=False, curr_epoch=None):
     eval_env = gym.make(env_name)
     eval_env.seed(seed + 100)
 
+    if curr_epoch < args.num_epochs * 80 // 100:
+        save_videos = False # overwrite the default save_videos to False until the end of training
+    if save_videos:
+        video_folder = f'{output_dir}/saved_videos'
+        os.makedirs(video_folder, exist_ok=True)
+
     scores = []
-    for _ in range(eval_episodes):
+    for ep in range(eval_episodes):
         traj_return = 0.
+        arrs = []
         state, done = eval_env.reset(), False
         while not done:
             action = policy.sample_action(np.array(state))
             state, reward, done, _ = eval_env.step(action)
+
+            if save_videos:
+                curr_frame = env.sim.render(width=640, height=480, mode='offscreen', camera_name=None, device_id=0)
+                arrs.append(curr_frame[::-1, :, :])
+
             traj_return += reward
         scores.append(traj_return)
+        if save_videos:
+            skvideo.io.vwrite( f'{video_folder}/epoch_{curr_epoch}_episode_{ep+1}.mp4', np.asarray(arrs))
 
     avg_reward = np.mean(scores)
     std_reward = np.std(scores)
@@ -214,6 +229,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, scaler=None):
     std_norm_score = np.std(normalized_scores)
 
     utils.print_banner(f"Evaluation over {eval_episodes} episodes: {avg_reward:.2f} {avg_norm_score:.2f}")
+    eval_env.close()
     return avg_reward, std_reward, avg_norm_score, std_norm_score
 
 
@@ -256,14 +272,21 @@ if __name__ == "__main__":
     parser.add_argument('--num_memories_frac', type=float, default=0.1)
     parser.add_argument('--Lipz', type=float, default=1.0)
     parser.add_argument('--lamda', type=float, default=1.0)
+    parser.add_argument('--save_videos', action='store_true', default=False)
 
     args = parser.parse_args()
+
+    if args.save_videos:
+        import skvideo.io
+
     args.device = f"cuda:{args.device}" if torch.cuda.is_available() else "cpu"
     args.output_dir = f'{args.dir}'
 
     args.num_epochs = hyperparameters[args.env_name]['num_epochs']
     args.eval_freq = hyperparameters[args.env_name]['eval_freq']
     args.eval_episodes = 10 if 'v2' in args.env_name else 100
+    if args.save_videos:
+        args.eval_episodes = 10 # overwrite the default eval_episodes to fewer episodes for saving videos
 
     args.lr = hyperparameters[args.env_name]['lr']
     args.eta = hyperparameters[args.env_name]['eta']
