@@ -12,6 +12,7 @@ from offlinerlkit.buffer import ReplayBuffer
 from offlinerlkit.utils.logger import Logger
 from offlinerlkit.policy import BasePolicy
 import time
+import skvideo.io
 
 # model-free policy trainer
 class MFPolicyTrainer:
@@ -27,6 +28,8 @@ class MFPolicyTrainer:
         eval_episodes: int = 10,
         lr_scheduler: Optional[torch.optim.lr_scheduler._LRScheduler] = None,
         sequential: bool = False,
+        save_videos: bool = False,
+        freq_save_videos: int = 50,
     ) -> None:
         self.policy = policy
         self.eval_env = eval_env
@@ -39,6 +42,11 @@ class MFPolicyTrainer:
         self._eval_episodes = eval_episodes
         self.lr_scheduler = lr_scheduler
         self.sequential = sequential
+        self.save_videos = save_videos
+        self.freq_save_videos = freq_save_videos
+        self.videos_dir = os.path.join(self.logger._dir, "saved_videos")
+        if self.save_videos:
+            os.makedirs(self.videos_dir, exist_ok=True)
 
     def train(self, use_tqdm: bool = True) -> Dict[str, float]:
         start_time = time.time()
@@ -70,7 +78,7 @@ class MFPolicyTrainer:
             
             # evaluate current policy
             t1 = time.time()
-            eval_info = self._evaluate()
+            eval_info = self._evaluate(epoch=e)
             ep_reward_mean, ep_reward_std = np.mean(eval_info["eval/episode_reward"]), np.std(eval_info["eval/episode_reward"])
             ep_length_mean, ep_length_std = np.mean(eval_info["eval/episode_length"]), np.std(eval_info["eval/episode_length"])
             norm_ep_rew_mean = self.eval_env.get_normalized_score(ep_reward_mean) * 100
@@ -93,17 +101,27 @@ class MFPolicyTrainer:
 
         return {"last_10_performance": np.mean(last_10_performance)}
 
-    def _evaluate(self) -> Dict[str, List[float]]:
+    def _evaluate(self, epoch=None) -> Dict[str, List[float]]:
         self.policy.eval()
         if self.sequential: self.policy.reset_obs_buffer()
         obs = self.eval_env.reset()
         eval_ep_info_buffer = []
         num_episodes = 0
         episode_reward, episode_length = 0, 0
+        
+        save_videos_this_epoch = self.save_videos and (epoch is not None) and ((epoch+1) % self.freq_save_videos == 0)
+        self.logger.logkv("eval/save_videos_this_epoch", save_videos_this_epoch)
+        if save_videos_this_epoch:
+            arrs = []
 
         while num_episodes < self._eval_episodes:
             action = self.policy.select_action(obs.reshape(1,-1), deterministic=True)
             next_obs, reward, terminal, _ = self.eval_env.step(action.flatten())
+
+            if save_videos_this_epoch:
+                curr_frame = self.eval_env.sim.render(width=640, height=480, mode='offscreen', camera_name=None, device_id=0)
+                arrs.append(curr_frame[::-1, :, :])
+
             episode_reward += reward
             episode_length += 1
 
@@ -117,6 +135,9 @@ class MFPolicyTrainer:
                 episode_reward, episode_length = 0, 0
                 if self.sequential: self.policy.reset_obs_buffer()
                 obs = self.eval_env.reset()
+                if save_videos_this_epoch:
+                    skvideo.io.vwrite( f'{self.videos_dir}/epoch_{epoch+1}_episode_{num_episodes+1}.mp4', np.asarray(arrs))
+                    arrs = []
         
         return {
             "eval/episode_reward": [ep_info["episode_reward"] for ep_info in eval_ep_info_buffer],

@@ -213,7 +213,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, scaler=None, output_di
             state, reward, done, _ = eval_env.step(action)
 
             if save_videos:
-                curr_frame = env.sim.render(width=640, height=480, mode='offscreen', camera_name=None, device_id=0)
+                curr_frame = eval_env.sim.render(width=640, height=480, mode='offscreen', camera_name=None, device_id=0)
                 arrs.append(curr_frame[::-1, :, :])
 
             traj_return += reward

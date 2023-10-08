@@ -51,6 +51,7 @@ def get_args():
     parser.add_argument('--lamda', type=float, default=1.0)
     parser.add_argument('--use-tqdm', type=int, default=1) # 1 or 0
     parser.add_argument('--use-random-memories', type=int, default=0) # 1 or 0
+    parser.add_argument('--save_videos', action='store_true', default=False)
 
     return parser.parse_args()
 
@@ -194,7 +195,9 @@ def train(args=get_args()):
         epoch=args.epoch,
         step_per_epoch=args.step_per_epoch,
         batch_size=args.batch_size,
-        eval_episodes=args.eval_episodes
+        eval_episodes=args.eval_episodes,
+        save_videos=args.save_videos,
+        freq_save_videos=50, # save videos every 50 epochs
     )
 
     # train
