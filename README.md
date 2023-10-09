@@ -29,63 +29,31 @@ In a second terminal window, run
 ```
 Use the Town03 map for `carla-town-v0`, and Town04 for `carla-lane-v0`.
 
-## Quickstart
+## Quickstart 
 Download the updated datasets for Adroit:
 ```bash
 python mems_obs/download_updated_datasets.py
 ```
 
-Run BC with memories:
+Run MCNN + MLP:
 ```bash
 python algos/td3bc_trainer.py --algo-name mem_bc --task pen-human-v1 --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
-Replace task with any of the 14 tasks (hammer-human-v1, pen-human-v1, relocate-human-v1, door-human-v1, hammer-expert-v1, pen-expert-v1, relocate-expert-v1, door-expert-v1, hammer-cloned-v1, pen-cloned-v1, relocate-cloned-v1, door-cloned-v1, carla-lane-v0, carla-town-v0).
+Replace `pen-human-v1` with any of the other tasks such as (hammer-human-v1, pen-human-v1, relocate-human-v1, door-human-v1, hammer-expert-v1, pen-expert-v1, relocate-expert-v1, door-expert-v1, carla-lane-v0).
 
-## Detailed instructions
-### Collect data
-Download d4rl datasets and resnet models for CARLA embeddings:
-```bash
-python data/download_d4rl_datasets.py
-python data/download_nocrash_models.py
-```
-
-Gnerate CARLA mebeddings
-```bash
-python data/generate_carla_models.py
-```
-
-### Create Memories with Neural Gas
-Create memories:
-```bash
-python mems_obs/create_gng_incrementally.py --name pen-human-v1 --num_memories_frac 0.1
-```
-Replace name with any of the 14 tasks and num_memories_frac with any value less than 1. In the paper, we use 0.025, 0.05, and 0.1 for num_memories_frac.
-
-Update (downloaded) datasets by adding memory and memory_target to every transition:
-```bash
-python mems_obs/update_data.py --name pen-human-v1 --num_memories_frac 0.1
-```
-Similar to above, replace name with any of the 14 tasks and num_memories_frac with any value less than 1.
-
-### Create Random Memories
-Create random subset of all observations as memories and update (downloaded) datasets by adding memory and memory_target to every transition:
-```bash
-python mems_obs/update_data_random_mems.py --name pen-human-v1 --num_memories_frac 0.1
-```
-Similar to above, replace name with any of the 14 tasks and num_memories_frac with any value less than 1.
-
-### Train / Evaluate
-For BC with neural gas memories:
+## Detailed instructions for all methods
+### Train / Evaluate with MLP
+For MCNN + MLP with neural gas memories:
 ```bash
 python algos/td3bc_trainer.py --algo-name mem_bc --task pen-human-v1 --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
 
-For BC with random memories:
+For MCNN + MLP with random memories:
 ```bash
 python algos/td3bc_trainer.py --algo-name mem_bc --task pen-human-v1 --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0 --use-random-memories 1
 ```
 
-For BC without memories:
+For MLP-BC:
 ```bash
 python algos/td3bc_trainer.py --algo-name bc --task pen-human-v1
 ```
@@ -101,6 +69,22 @@ For CQL with sparse reward:
 python algos/cql_sparse_trainer.py --task pen-human-v1
 ```
 
+### Train / Evaluate with Diffusion Policy * RECOMMENDED *
+Move to the folder:
+```bash
+cd Diffusion_Policies
+```
+
+For MCNN + Diffusion Policy:
+```bash
+python main.py --algo mcnn_bc --env_name pen-human-v1 --device 0 --ms online --lr_decay --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
+```
+
+For Diffusion Policy based BC:
+```bash
+python main.py --algo bc --env_name pen-human-v1 --device 0 --ms online --lr_decay
+```
+
 ### Train / Evaluate with Behavior Transformer (BeT)
 Extra installs:
 ```
@@ -108,28 +92,45 @@ cd miniBET
 pip install -e .
 ```
 
-For BeT with memories:
+For MCNN + BeT:
 ```bash
 python algos/td3bc_trainer_with_bet.py --algo-name mem_bet --task pen-human-v1 --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
 
-For BeT without memories:
+For BeT-BC:
 ```bash
 python algos/td3bc_trainer_with_bet.py --algo-name bet --task pen-human-v1
 ```
 
-### Train / Evaluate with Diffusion Policy
-Move to the folder:
+## Detailed instructions for creating datasets
+### Collect data
+Download d4rl datasets and resnet models for CARLA embeddings:
 ```bash
-cd Diffusion_Policies
+python data/download_d4rl_datasets.py
+python data/download_nocrash_models.py
 ```
 
-For Diffusion Policy with memories:
+Gnerate CARLA embeddings
 ```bash
-python main.py --algo mcnn_bc --env_name pen-human-v1 --device 0 --ms online --lr_decay --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
+python data/generate_carla_models.py
 ```
 
-For Diffusion Policy without memories:
+### Create Memories with Neural Gas
+Create memories:
 ```bash
-python main.py --algo bc --env_name pen-human-v1 --device 0 --ms online --lr_decay
+python mems_obs/create_gng_incrementally.py --name pen-human-v1 --num_memories_frac 0.1
 ```
+Replace name with any of the other tasks and num_memories_frac with any value less than 1. In the paper, we use 0.025, 0.05, and 0.1 for num_memories_frac.
+
+Update (downloaded) datasets by adding memory and memory_target to every transition:
+```bash
+python mems_obs/update_data.py --name pen-human-v1 --num_memories_frac 0.1
+```
+Similar to above, replace name with any of the other tasks and num_memories_frac with any value less than 1.
+
+### Create Random Memories
+Create random subset of all observations as memories and update (downloaded) datasets by adding memory and memory_target to every transition:
+```bash
+python mems_obs/update_data_random_mems.py --name pen-human-v1 --num_memories_frac 0.1
+```
+Similar to above, replace name with any of the other tasks and num_memories_frac with any value less than 1.
