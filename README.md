@@ -1,4 +1,7 @@
 # Memory-Consistent Neural Networks
+
+Website: https://sites.google.com/view/mcnn-imitation
+
 ## Setup
 Create env, install pytorch, install requirements.
 ```bash
@@ -39,13 +42,13 @@ Train and evaluate MCNN + MLP:
 ```bash
 python algos/td3bc_trainer.py --algo-name mem_bc --task pen-human-v1 --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
-Replace `pen-human-v1` with any of the other tasks such as (hammer-human-v1, pen-human-v1, relocate-human-v1, door-human-v1, hammer-expert-v1, pen-expert-v1, relocate-expert-v1, door-expert-v1, carla-lane-v0).
 
 Train and evaluate MCNN + Diffusion Policy:
 ```bash
 cd Diffusion_Policies
 python main.py --algo mcnn_bc --env_name pen-human-v1 --device 0 --ms online --lr_decay --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
+Replace `pen-human-v1` with any of the other tasks such as (hammer-human-v1, pen-human-v1, relocate-human-v1, door-human-v1, hammer-expert-v1, pen-expert-v1, relocate-expert-v1, door-expert-v1, carla-lane-v0).
 
 ## Detailed instructions for all methods
 ### Train / Evaluate with MLP
