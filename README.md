@@ -3,7 +3,7 @@
 [arXiv](https://arxiv.org/abs/2310.06171) | [Website](https://sites.google.com/view/mcnn-imitation) 
 
 <p align="center">
-  <img src="assets/mcnn.gif" width="320" height="240" alt="Description">
+  <img src="assets/mcnn.gif" width="320" height="240" alt="Videos of MCNN agents performing dexterous manipulation tasks">
 </p>
 
 ## Setup
