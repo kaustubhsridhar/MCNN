@@ -2,6 +2,10 @@
 
 [arXiv](https://arxiv.org/abs/2310.06171) | [Website](https://sites.google.com/view/mcnn-imitation) 
 
+<p align="center">
+  <img src="assets/mcnn.gif" width="320" height="240" alt="Description">
+</p>
+
 ## Setup
 Create env, install pytorch, install requirements.
 ```bash
