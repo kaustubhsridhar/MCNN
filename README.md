@@ -1,6 +1,6 @@
 # Memory-Consistent Neural Networks
 
-Website: https://sites.google.com/view/mcnn-imitation
+[arXiv](https://arxiv.org/abs/2310.06171) | [Website](https://sites.google.com/view/mcnn-imitation) 
 
 ## Setup
 Create env, install pytorch, install requirements.
@@ -143,3 +143,16 @@ Create random subset of all observations as memories and update (downloaded) dat
 python mems_obs/update_data_random_mems.py --name pen-human-v1 --num_memories_frac 0.1
 ```
 Similar to above, replace name with any of the other tasks and num_memories_frac with any value less than 1.
+
+## BibTeX
+If you find this codebase or our paper helpful, please consider citing us:
+```
+@misc{sridhar2023memoryconsistent,
+      title={Memory-Consistent Neural Networks for Imitation Learning}, 
+      author={Kaustubh Sridhar and Souradeep Dutta and Dinesh Jayaraman and James Weimer and Insup Lee},
+      year={2023},
+      eprint={2310.06171},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
