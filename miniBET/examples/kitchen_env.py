@@ -10,7 +10,7 @@ import torch
 from d4rl.kitchen.adept_envs.franka.kitchen_multitask_v0 import KitchenTaskRelaxV1
 from gym.envs.registration import register
 
-from dataset import RelayKitchenTrajectoryDataset
+from kitchen_dataset import RelayKitchenTrajectoryDataset
 
 OBS_ELEMENT_INDICES = {
     "bottom burner": np.array([11, 12]),

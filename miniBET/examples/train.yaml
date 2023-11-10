@@ -4,9 +4,9 @@ defaults:
 env_vars:
   # TODO fill these out
   datasets:
-    carla_multipath_town04_merge: /path/to/datasets/carla_dataset
-    relay_kitchen: /path/to/datasets/relay_kitchen_dataset
-    multimodal_push_fixed_target: /path/to/datasets/block_push_dataset
+    carla_multipath_town04_merge: bet_data_release/carla
+    relay_kitchen: bet_data_release/kitchen
+    multimodal_push_fixed_target: bet_data_release/blockpush
   wandb_entity: your_wandb_entity
 
 seed: 42
@@ -39,7 +39,7 @@ env:
   goal_dim: 0 # 60 # set to 0 for bet and 60 for c-bet (conditional bet)
 
 data:
-  _target_: dataset.get_relay_kitchen_train_val
+  _target_: kitchen_dataset.get_relay_kitchen_train_val
   data_directory: ${env_vars.datasets.relay_kitchen}
   goal_conditional: future
   future_seq_len: ${window_size}

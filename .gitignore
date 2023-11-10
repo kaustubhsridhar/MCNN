@@ -29,3 +29,5 @@ ibc/
 algos/print_results.py
 algos/mcnn_logs
 Diffusion_Policies/results*
+*.tar.gz
+miniBET/bet_data_release/

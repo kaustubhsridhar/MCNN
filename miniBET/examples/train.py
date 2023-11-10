@@ -12,7 +12,6 @@ from omegaconf import OmegaConf
 import kitchen_env
 import wandb
 
-
 if "MUJOCO_GL" not in os.environ:
     os.environ["MUJOCO_GL"] = "egl"
 
