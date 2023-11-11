@@ -10,7 +10,7 @@
 Create env, install pytorch, install requirements.
 ```bash
 conda create -n MCNN_env python=3.8
-conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 pip install -r requirements.txt
 ```
 
