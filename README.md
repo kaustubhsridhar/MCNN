@@ -49,7 +49,7 @@ python algos/td3bc_trainer.py --algo-name mem_bc --task pen-human-v1 --num_memor
 
 Train and evaluate MCNN + Diffusion Policy:
 ```bash
-cd Diffusion_Policies
+cd diffusion_BC
 python main.py --algo mcnn_bc --env_name pen-human-v1 --device 0 --ms online --lr_decay --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
 Replace `pen-human-v1` with any of the other tasks such as (hammer-human-v1, pen-human-v1, relocate-human-v1, door-human-v1, hammer-expert-v1, pen-expert-v1, relocate-expert-v1, door-expert-v1, carla-lane-v0).
@@ -82,20 +82,36 @@ For CQL with sparse reward:
 python algos/cql_sparse_trainer.py --task pen-human-v1
 ```
 
-### Train / Evaluate with Diffusion Policy
+### Train / Evaluate with Diffusion BC [Wang et al., ICLR 2023] in Adroit Environments
 Move to the folder:
 ```bash
-cd Diffusion_Policies
+cd diffusion_BC
 ```
 
-For MCNN + Diffusion Policy:
+For MCNN + Diffusion:
 ```bash
 python main.py --algo mcnn_bc --env_name pen-human-v1 --device 0 --ms online --lr_decay --num_memories_frac 0.1 --Lipz 1.0 --lamda 1.0
 ```
 
-For Diffusion Policy based BC:
+For Diffusion-BC:
 ```bash
 python main.py --algo bc --env_name pen-human-v1 --device 0 --ms online --lr_decay
+```
+
+### Train / Evaluate with Diffusion Policy [Chi et al., RSS 2023] in FrankaKitchen Environments
+Move to the folder:
+```bash
+cd diffusion_policy
+```
+
+For MCNN + Diffusion:
+```bash
+
+```
+
+For Diffusion-BC:
+```bash
+
 ```
 
 ### Train / Evaluate with Behavior Transformer (BeT)
@@ -117,10 +133,11 @@ python algos/td3bc_trainer_with_bet.py --algo-name bet --task pen-human-v1
 
 ## Detailed instructions for creating datasets
 ### Collect data
-Download d4rl datasets and resnet models for CARLA embeddings:
+Download d4rl datasets, resnet models for CARLA embeddings, and franka kitchen dataset:
 ```bash
 python data/download_d4rl_datasets.py
 python data/download_nocrash_models.py
+cd diffusion_policy && bash download_kitchen_data.sh && cd ../
 ```
 
 Gnerate CARLA embeddings
@@ -133,7 +150,7 @@ Create memories:
 ```bash
 python mems_obs/create_gng_incrementally.py --name pen-human-v1 --num_memories_frac 0.1
 ```
-Replace name with any of the other tasks and num_memories_frac with any value less than 1. In the paper, we use 0.025, 0.05, and 0.1 for num_memories_frac.
+Replace name with any of the other tasks and num_memories_frac with any value less than 1. In the paper, we use 0.025, 0.05, and 0.1 for num_memories_frac. (Note: simply use `--name kitchen` for the franka kitchen task)
 
 Update (downloaded) datasets by adding memory and memory_target to every transition:
 ```bash
