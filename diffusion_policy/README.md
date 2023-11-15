@@ -131,7 +131,7 @@ Activate conda environment and login to [wandb](https://wandb.ai) (if you haven'
 (robodiff)[diffusion_policy]$ wandb login
 ```
 
-Launch training with seed 42 on GPU 0.
+Launch training with seed 42 on GPU 0.!!!
 ```console
 (robodiff)[diffusion_policy]$ python train.py --config-dir=. --config-name=kitchen_diffusion_policy_cnn.yaml training.seed=42 training.device=cuda:0 hydra.run.dir='data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}'
 ```

@@ -1,0 +1,11 @@
+# new for diffusion_policy code
+dill
+diffusers
+zarr
+workspace
+numba
+av
+gym==0.21.0
+# maybe below also?
+mujoco==2.3.0
+dm_control==1.0.3

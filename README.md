@@ -99,9 +99,11 @@ python main.py --algo bc --env_name pen-human-v1 --device 0 --ms online --lr_dec
 ```
 
 ### Train / Evaluate with Diffusion Policy [Chi et al., RSS 2023] in FrankaKitchen Environments
-Move to the folder:
+Move to the folder and perform extra installs:
 ```bash
 cd diffusion_policy
+pip install -e .
+pip install -r more_requirements.txt
 ```
 
 For MCNN + Diffusion:
@@ -109,16 +111,15 @@ For MCNN + Diffusion:
 
 ```
 
-For Diffusion-BC:
+For diffusion policy BC:
 ```bash
-
+python train.py --config-dir=. --config-name=kitchen_diffusion_policy_cnn.yaml training.seed=42 training.device=cuda:0 hydra.run.dir='data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}'
 ```
 
 ### Train / Evaluate with Behavior Transformer (BeT)
 Extra installs:
 ```
-cd miniBET
-pip install -e .
+cd miniBET && pip install -e . && cd ../
 ```
 
 For MCNN + BeT:
