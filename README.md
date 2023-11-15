@@ -133,11 +133,11 @@ python algos/td3bc_trainer_with_bet.py --algo-name bet --task pen-human-v1
 
 ## Detailed instructions for creating datasets
 ### Collect data
-Download d4rl datasets, resnet models for CARLA embeddings, and franka kitchen dataset:
+Download d4rl datasets, franka kitchen dataset, and resnet models for CARLA embeddings:
 ```bash
 python data/download_d4rl_datasets.py
-python data/download_nocrash_models.py
 cd diffusion_policy && bash download_kitchen_data.sh && cd ../
+python data/download_nocrash_models.py
 ```
 
 Gnerate CARLA embeddings

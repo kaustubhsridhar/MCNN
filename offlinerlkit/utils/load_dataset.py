@@ -2,8 +2,9 @@ import numpy as np
 import torch
 import collections
 import pickle 
+from copy import deepcopy
 
-def qlearning_dataset_percentbc(task, chosen_percentage, num_memories_frac, use_random_memories=False, prefix=None):
+def qlearning_dataset_percentbc(task, chosen_percentage, num_memories_frac, use_random_memories=False, prefix=None, oversampling=None):
     if chosen_percentage < 1.0:
         return qlearning_dataset_smaller_percentbc(task, chosen_percentage, num_memories_frac, use_random_memories=use_random_memories)
     
@@ -34,6 +35,19 @@ def qlearning_dataset_percentbc(task, chosen_percentage, num_memories_frac, use_
     mem_actions = np.concatenate([path['mem_actions'] for path in train_paths], axis=0)
     mem_next_observations = np.concatenate([path['mem_next_observations'] for path in train_paths], axis=0)
     mem_rewards = np.concatenate([path['mem_rewards'] for path in train_paths], axis=0)
+
+    if oversampling is not None:
+        oversampling = int(oversampling)
+        assert oversampling >= 1
+        observations = np.concatenate([observations]+[deepcopy(memories_obs)]*oversampling, axis=0)
+        actions = np.concatenate([actions]+[deepcopy(memories_act)]*oversampling, axis=0)
+        next_observations = np.concatenate([next_observations]+[deepcopy(memories_next_obs)]*oversampling, axis=0)
+        rewards = np.concatenate([rewards]+[deepcopy(memories_rewards)]*oversampling, axis=0)
+        terminals = np.concatenate([terminals]+[np.zeros_like(memories_rewards)]*oversampling, axis=0)
+        mem_observations = np.concatenate([mem_observations]+[deepcopy(memories_obs)]*oversampling, axis=0)
+        mem_actions = np.concatenate([mem_actions]+[deepcopy(memories_act)]*oversampling, axis=0)
+        mem_next_observations = np.concatenate([mem_next_observations]+[deepcopy(memories_next_obs)]*oversampling, axis=0)
+        mem_rewards = np.concatenate([mem_rewards]+[deepcopy(memories_rewards)]*oversampling, axis=0)
 
     return {
         'observations': observations,

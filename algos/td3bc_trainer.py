@@ -53,6 +53,8 @@ def get_args():
     parser.add_argument('--use-random-memories', type=int, default=0) # 1 or 0
     parser.add_argument('--save_videos', action='store_true', default=False)
 
+    parser.add_argument('--oversampling', type=int, default=1) # how many times should you oversample memories
+
     return parser.parse_args()
 
 
@@ -66,7 +68,7 @@ def train(args=get_args()):
 
     # create env and dataset
     env = gym.make(args.task)
-    dataset = qlearning_dataset_percentbc(args.task, args.chosen_percentage, args.num_memories_frac, use_random_memories=args.use_random_memories)
+    dataset = qlearning_dataset_percentbc(args.task, args.chosen_percentage, args.num_memories_frac, use_random_memories=args.use_random_memories, oversampling=args.oversampling)
     if 'antmaze' in args.task:
         dataset["rewards"] -= 1.0
     args.obs_shape = (512,) if 'carla' in args.task else env.observation_space.shape
@@ -172,7 +174,7 @@ def train(args=get_args()):
         )
 
     # log
-    record_params = ["chosen_percentage"]
+    record_params = ["chosen_percentage", "oversampling"]
     if "mem" in args.algo_name:
         record_params += ["num_memories_frac", "Lipz", "lamda"]
 
