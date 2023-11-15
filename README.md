@@ -68,8 +68,9 @@ python algos/td3bc_trainer.py --algo-name mem_bc --task pen-human-v1 --num_memor
 
 For MLP-BC:
 ```bash
-python algos/td3bc_trainer.py --algo-name bc --task pen-human-v1
+python algos/td3bc_trainer.py --algo-name bc --task pen-human-v1 --oversampling 1
 ```
+The oversampling value can be any integer greater than or equal to zero. A value of zero is no oversampling. A value of one implies memories are sampled again outside of the training dataset. And so on.
 
 For 1NN and VINN:
 ```bash
