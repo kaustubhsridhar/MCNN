@@ -106,14 +106,10 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
             neural_net_pred = model(trajectory, t, local_cond=local_cond, global_cond=global_cond)
             with torch.no_grad():
                 dist = torch.norm(nobs - nmem_obs, p=2, dim=-1).unsqueeze(-1)
-            dist = torch.cat([dist, torch.zeros((dist.shape[0], neural_net_pred.shape[1]-dist.shape[1], 1), device=dist.device)], dim=1) # padding with 0 dist
             exp_lamda_dist = torch.exp(- self.lamda * dist)
+            exp_lamda_dist = torch.cat([exp_lamda_dist, torch.zeros((exp_lamda_dist.shape[0], neural_net_pred.shape[1]-exp_lamda_dist.shape[1], 1), device=dist.device)], dim=1) # padding with 0 dist
             beta = 0
-            try:
-                pred = nmem_act * exp_lamda_dist + self.Lipz * (1.0 - exp_lamda_dist) * self.shifted_crazy_relu(neural_net_pred, beta)
-            except:
-                print(f"{nmem_act.shape=}, {exp_lamda_dist.shape=}, {neural_net_pred.shape=}")
-                exit()
+            pred = nmem_act * exp_lamda_dist + self.Lipz * (1.0 - exp_lamda_dist) * self.shifted_crazy_relu(neural_net_pred, beta)
 
             # 3. compute previous image: x_t -> x_t-1
             trajectory = scheduler.step(
@@ -240,10 +236,10 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
         # normalize input
         assert 'valid_mask' not in batch
         nbatch = self.normalizer.normalize(batch)
-        obs = nbatch['obs']
-        action = nbatch['action']
-        mem_observation = nbatch['mem_observations']
-        mem_action = nbatch['mem_actions']
+        obs = nbatch['obs'] # (B, T=16, Do=60)
+        action = nbatch['action'] # (B, T=16, Da=9)
+        mem_observation = nbatch['mem_observations'] # (B, T=16, Do=60)
+        mem_action = nbatch['mem_actions'] # (B, T=16, Da=9)
 
         # handle different ways of passing observation
         local_cond = None
