@@ -4,6 +4,7 @@ import numpy as np
 import collections
 import pickle
 from neural_gas_helpers import data2gas
+from franka_kitchen_helpers import create_gng_incremental_for_frankakitchen
 import os 
 from collections import defaultdict
 import time
@@ -24,13 +25,7 @@ os.makedirs(folder, exist_ok=True)
 
 # for kitchen data only since it has a different dataset format
 if args.name == 'kitchen':
-    all_observations = np.load(f'diffusion_policy/data/{args.name}/all_observations.npy')
-    print(f'{all_observations.shape=}')
-    gng = data2gas(states=all_observations, max_memories=int(len(all_observations) * args.num_memories_frac), gng_epochs=args.gng_epochs)
-    os.makedirs(f'{folder}/{args.name}', exist_ok=True)
-    with open(f'{folder}/{args.name}/memories_{args.num_memories_frac}_frac.pkl', 'wb') as f:
-        pickle.dump(gng, f)
-    print(f'Done.')
+    create_gng_incremental_for_frankakitchen(folder, args)
     exit()
 
 # load top_paths
