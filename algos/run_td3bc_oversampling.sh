@@ -9,7 +9,7 @@ for TASKS in 'pen-human-v1 hammer-human-v1' 'door-human-v1 relocate-human-v1' 'p
 do
     for task in ${TASKS}
     do
-        for oversampling in 5
+        for oversampling in 1
         do
             CUDA_VISIBLE_DEVICES=${GPU} nohup python -u algos/td3bc_trainer.py --seed ${SEED} --oversampling ${oversampling} --algo-name ${AlgoType} --task ${task} --use-tqdm 0 > algos/logs_td3bc/${AlgoType}_${task}_oversampling${oversampling}_seed${SEED}.log &
         done  

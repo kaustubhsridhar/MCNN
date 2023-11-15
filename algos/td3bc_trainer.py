@@ -53,7 +53,7 @@ def get_args():
     parser.add_argument('--use-random-memories', type=int, default=0) # 1 or 0
     parser.add_argument('--save_videos', action='store_true', default=False)
 
-    parser.add_argument('--oversampling', type=int, default=1) # how many times should you oversample memories
+    parser.add_argument('--oversampling', type=int, default=0) # how many times should you oversample memories
 
     return parser.parse_args()
 

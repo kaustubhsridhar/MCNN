@@ -38,7 +38,7 @@ def qlearning_dataset_percentbc(task, chosen_percentage, num_memories_frac, use_
 
     if oversampling is not None:
         oversampling = int(oversampling)
-        assert oversampling >= 1
+        assert oversampling >= 0
         observations = np.concatenate([observations]+[deepcopy(memories_obs)]*oversampling, axis=0)
         actions = np.concatenate([actions]+[deepcopy(memories_act)]*oversampling, axis=0)
         next_observations = np.concatenate([next_observations]+[deepcopy(memories_next_obs)]*oversampling, axis=0)
