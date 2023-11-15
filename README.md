@@ -71,6 +71,8 @@ For MLP-BC:
 python algos/td3bc_trainer.py --algo-name bc --task pen-human-v1
 ```
 
+(If you'd like to run vanilla MLP-BC with oversampling of memories, please switch to the `expts` branch.)
+
 For 1NN and VINN:
 ```bash
 python algos/nearest_neighbours.py --algo-name 1nn --task pen-human-v1
