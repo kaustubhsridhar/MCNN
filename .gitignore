@@ -31,4 +31,5 @@ algos/mcnn_logs
 diffusion_BC/results*
 *.tar.gz
 BET/bet_data_release/
-diffusion_policies/data/
+diffusion_policy/data/
+diffusion_policy/diffusion-policy.cs.columbia.edu/
