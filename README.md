@@ -127,7 +127,6 @@ Finally, run MCNN + Diffusion:
 ```bash
 python train.py --config-dir=. --config-name=kitchen_mcnn_diffusion_cnn.yaml training.seed=42 training.device=cuda:0 hydra.run.dir='data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}'
 ```
-<!-- Our experiment logs are also publicaly available [here](https://wandb.ai/neurosymbolic_ai/mcnn_and_diffusion_policy). -->
 
 ### Train / Evaluate with Behavior Transformer (BeT)
 Extra installs:
