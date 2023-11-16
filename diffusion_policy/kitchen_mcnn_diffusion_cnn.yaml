@@ -30,7 +30,7 @@ logging:
   id: null
   mode: online
   name: 2023.02.25-03.06.09_train_MCNN_diffusion_unet_lowdim_kitchen_lowdim
-  project: diffusion_policy_debug
+  project: mcnn_and_diffusion_policy
   resume: true
   tags:
   - train_diffusion_unet_lowdim
