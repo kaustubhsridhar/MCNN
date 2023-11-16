@@ -4,6 +4,7 @@
 
 <p align="center">
   <img src="assets/mcnn.gif" width="320" height="240" alt="Videos of MCNN agents performing dexterous manipulation tasks">
+  <img src="assets/kitchen5.gif" width="320" height="240" alt="Videos of MCNN agents in the Franka Kitchen environment">
 </p>
 
 ## Setup
