@@ -29,7 +29,7 @@ logging:
   id: null
   mode: online
   name: 2023.01.27-17.53.15_train_diffusion_transformer_lowdim_kitchen_lowdim
-  project: diffusion_policy_debug
+  project: mcnn_and_diffusion_policy
   resume: true
   tags:
   - train_diffusion_transformer_lowdim
