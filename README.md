@@ -99,22 +99,6 @@ For Diffusion-BC:
 python main.py --algo bc --env_name pen-human-v1 --device 0 --ms online --lr_decay
 ```
 
-### Train / Evaluate with Diffusion Policy [Chi et al., RSS 2023] in FrankaKitchen Environments
-Move to the folder:
-```bash
-cd diffusion_policy
-```
-
-For MCNN + Diffusion:
-```bash
-
-```
-
-For Diffusion-BC:
-```bash
-
-```
-
 ### Train / Evaluate with Behavior Transformer (BeT)
 Extra installs:
 ```
