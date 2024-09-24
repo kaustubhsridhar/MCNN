@@ -1,4 +1,4 @@
-# Memory-Consistent Neural Networks
+# Memory-Consistent Neural Networks For Imitation Learning
 
 [arXiv](https://arxiv.org/abs/2310.06171) | [Website](https://sites.google.com/view/mcnn-imitation) 
 
