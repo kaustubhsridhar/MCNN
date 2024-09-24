@@ -181,12 +181,21 @@ Similar to above, replace name with any of the other tasks and num_memories_frac
 ## BibTeX
 If you find this codebase or our paper helpful, please consider citing us:
 ```
-@misc{sridhar2023memoryconsistent,
-      title={Memory-Consistent Neural Networks for Imitation Learning}, 
-      author={Kaustubh Sridhar and Souradeep Dutta and Dinesh Jayaraman and James Weimer and Insup Lee},
-      year={2023},
-      eprint={2310.06171},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@article{sridhar2023memory,
+  title={Memory-consistent neural networks for imitation learning},
+  author={Sridhar, Kaustubh and Dutta, Souradeep and Jayaraman, Dinesh and Weimer, James and Lee, Insup},
+  journal={arXiv preprint arXiv:2310.06171},
+  year={2023}
+}
+```
+OR
+```
+@inproceedings{
+  sridhar2024memoryconsistent,
+  title={Memory-Consistent Neural Networks for Imitation Learning},
+  author={Kaustubh Sridhar and Souradeep Dutta and Dinesh Jayaraman and James Weimer and Insup Lee},
+  booktitle={The Twelfth International Conference on Learning Representations},
+  year={2024},
+  url={https://openreview.net/forum?id=R3Tf7LDdX4}
 }
 ```
